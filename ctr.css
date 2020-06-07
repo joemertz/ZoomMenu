@@ -1,0 +1,38 @@
+body {
+  background-color: black;
+  color: white;
+}
+
+#countdiv {
+  text-align: center;
+  font-size: 150px;
+  position: absolute;
+  width: 400px;
+  height: 350px;
+  left: 0;
+  padding: 30px;
+  border: 3px solid #73AD22;
+}
+
+#targetdiv {
+  text-align: center;
+  font-size: 150px;
+  position: absolute;
+  width: 400px;
+  height: 350px;
+  left: 500px;
+  padding: 30px;
+  border: 3px solid #73AD22;
+}
+
+#resetdiv {
+  text-align: center;
+  font-size: 100px;
+  position: absolute;
+  width: 900px;
+  height: 100px;
+  left: 0px;
+  top: 450px;
+  padding: 30px;
+  border: 3px solid #73AD22;
+}

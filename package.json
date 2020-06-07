@@ -1,0 +1,22 @@
+{
+  "name": "zoommenu",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joemertz/ZoomMenu.git"
+  },
+  "author": "Joe Mertz",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/joemertz/ZoomMenu/issues"
+  },
+  "homepage": "https://github.com/joemertz/ZoomMenu#readme",
+  "devDependencies": {
+    "electron": "^9.0.2"
+  }
+}
