@@ -2,7 +2,9 @@
 
 ## Status
 - Trying to do from scratch, not using the menubar example which was in ts and had a lot of magic.
-- Throws up the menubar icon, then blows up with "98897:0606 /222852.116198: FATAL: gpu_data_manager_impl_private.cc(439) GPU process isn't usable. Goodbye."
+- npm start to start
+- Zoom personal works
+- Zoom clipboard not yet implemented
 
 ## Useful resources
 - [App Menus](https://coursetro.com/posts/code/119/Working-with-Electron-Menus---Tutorial)
