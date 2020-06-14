@@ -1,9 +1,10 @@
 # ZoomMenu
 
 ## Status
-- Trying to do from scratch, not using the menubar example which was in ts and had a lot of magic.
 - npm start to start
 - Zoom personal works
+  - Refactored a bit to prep for doing the clipboard.
+  - Thought:  look for 10 digit string.  Are those always the Zoom link?
 - Zoom clipboard not yet implemented
 
 ## Useful resources

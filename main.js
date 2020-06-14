@@ -8,7 +8,7 @@ const { app, BrowserWindow, Menu, Tray } = require('electron')
         openZoomPersonal();
       }},
       { label: 'Zoom Clipboard', click() {
-        console.log('C');
+        openZoomClipboard();
       } },
       { type: 'separator'},
       {label:'Quit ZoomMenu', click() {
@@ -20,6 +20,16 @@ const { app, BrowserWindow, Menu, Tray } = require('electron')
   })
 
 function openZoomPersonal() {
+  openZoom(6283930936);
+}
+
+function openZoomClipboard() {
+  console.log("P");
+}
+
+function openZoom(confno) {
+  var execString = 'open \"zoommtg://zoom.us/join?action=start&confno='+confno+'\"';
+  console.log("execString:"+execString);
   var exec = require('child_process').exec;
-  exec('open "zoommtg://zoom.us/join?action=start&confno=6283930936"');
+  exec(execString);
 }
