@@ -3,9 +3,8 @@
 ## Status
 - npm start to start
 - Zoom personal works
-  - Refactored a bit to prep for doing the clipboard.
-  - Thought:  look for 10 digit string.  Are those always the Zoom link?
 - Zoom clipboard not yet implemented
+ - Got a couple versions working.  See comments in code.
 
 ## Useful resources
 - [App Menus](https://coursetro.com/posts/code/119/Working-with-Electron-Menus---Tutorial)
