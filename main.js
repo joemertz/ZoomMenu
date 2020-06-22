@@ -5,10 +5,10 @@ const { app, BrowserWindow, Menu, Tray, clipboard } = require('electron')
     tray = new Tray('./assets/IconTemplate.png')
     const contextMenu = Menu.buildFromTemplate([
       { label: 'Zoom Clipboard', click() {
-        openZoomClipboard();
+        parseClipboard();
       } },
       { label: 'Zoom Personal', click() {
-        openZoomPersonal();
+        openZoom();
       }},
       { type: 'separator'},
       {label:'Quit ZoomMenu', click() {
@@ -19,51 +19,71 @@ const { app, BrowserWindow, Menu, Tray, clipboard } = require('electron')
     tray.setContextMenu(contextMenu)
   })
 
-function openZoomPersonal() {
-  openZoom();
-}
+// Parse the clipboard to find a Meeting ID (id) and a Password (pwd)
+function parseClipboard() {
+  var id, pwd = null;
 
-function openZoomClipboard() {
   var clipText = clipboard.readText();
-  console.log("P: "+clipText);
-  //this one works if there is a password
-  //var success = testURLpassword(clipText);
-  //this one works for now password
-  var success = testURL(clipText);
-  if (success) openZoom(success);
-}
+  console.log("Clipboard:  "+clipText);
 
-function openZoom(confno) {
-  var execString;
-  if (confno) {
-    var execString = 'open \"zoommtg://zoom.us/join?action=join&confno='+confno+'\"';
-  } else {
-    var execString = 'open \"zoommtg://zoom.us/join?action=start\"';
+  // ID only
+  if (Number.isInteger(clipText)) {
+    openZoom(clipText);
+    return;
   }
-  console.log("execString:"+execString);
-  var exec = require('child_process').exec;
-  exec(execString);
+
+  // ID and PWD already formatted in a URL
+  var regex = /zoom\.us\/j\/(\d{9,11})(?!\d)\?pwd=(\w*)/;
+  var found = regex.exec(clipText)
+  if (found && found.length == 3) {
+    openZoom(found[1], found[2]);
+    return;
+  }
+
+  // ID only in URL
+  regex = /zoom\.us\/j\/(\d{9,11})(?!\d)/;
+  found = regex.exec(clipText)
+  if (found && found.length == 2) {
+    id = found[1];
+  } else {
+
+    // Meeting ID: xxx xxxx xxxx
+    regex = /Meeting ID:\s*(\d*)\s*(\d*)\s*(\d*)/;
+    found = regex.exec(clipText)
+    if (found && found.length == 4) {
+      id = found[1] + found[2] + found[3];
+    } else {
+      console.log("No Zoom meeting ID found")
+      return;
+      }
+  }
+
+  // We have an ID, look for a PWD
+  // Password: xxxxxx
+  regex = /Password:\s(\d*)/;
+  found = regex.exec(clipText);
+  if (found && found.length == 2) {
+    openZoom(id, found[1]);
+  } else {
+    openZoom(id);
+  }
 }
 
-//Just a Meeting ID
-// 9 - 11 digits, perhaps with spaces between.
+function openZoom(id, pwd) {
+  var execString = 'open \"zoommtg://zoom.us/'
+  if (!id) {
+    execString += 'join?action=start';
+  } else {
+    execString += 'action=join&confno='+id;
+    if (pwd) {
+      execString += '&pwd='+pwd;
+    }
+  }
+  execString +='\"'
+  console.log(execString);
 
-function testURL(str) {
-  const regex = /zoom\.us\/j\/(\d{9,11})(?!\d)/;
-  const found = regex.exec(str)
-  if (found.length == 2) return found[1];
-}
+  // launch Zoom
+  //var exec = require('child_process').exec;
+  //exec(execString);
 
-//https://zoom.us/j/95486480498?pwd=NDM1YWlYL0xNTG9uZ053V2t1VmJHUT09
-//This works for the string above.  It does not have checks, however.
-// and it needs to be refactored because I killed the testURL one.
-function testURLpassword(str) {
-  const regex = /zoom\.us\/j\/(\d{9,11})(?!\d)\?pwd=(\w*)/;
-  const found = regex.exec(str)
-  if (found.length !=3) return null;
-  var execString = 'open \"zoommtg://zoom.us/join?action=join&confno='+found[1]+'&pwd='+found[2]+'\"';
-  console.log("execString:"+execString);
-  var exec = require('child_process').exec;
-  exec(execString);
-  return null;
 }

@@ -2,9 +2,10 @@
 
 ## Status
 - npm start to start
-- Zoom personal works
-- Zoom clipboard not yet implemented
- - Got a couple versions working.  See comments in code.
+- personal and clipboard implemented
+- doing testing
+- there seems to be two forms of pwd.  Which work?  Do both work?
+
 
 ## Useful resources
 - [App Menus](https://coursetro.com/posts/code/119/Working-with-Electron-Menus---Tutorial)
