@@ -83,7 +83,7 @@ function openZoom(id, pwd) {
   console.log(execString);
 
   // launch Zoom
-  //var exec = require('child_process').exec;
-  //exec(execString);
+  var exec = require('child_process').exec;
+  exec(execString);
 
 }
