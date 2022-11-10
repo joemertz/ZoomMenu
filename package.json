@@ -17,6 +17,6 @@
   },
   "homepage": "https://github.com/joemertz/ZoomMenu#readme",
   "devDependencies": {
-    "electron": "^9.0.2"
+    "electron": "^18.3.7"
   }
 }
